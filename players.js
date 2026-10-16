@@ -389,4 +389,33 @@ const playersData = [
   ...playersAmericas,
   ...playersEmea,
   ...playersChina
-];
+];  
+// =====================================================================
+// デバイスリンク一括自動割り当て（マウス＆パッド）
+// =====================================================================
+const DEVICE_AFFILIATE_LINKS = {
+  // --- マウス ---
+  "Logicool G PRO X SUPERLIGHT 2": "https://hb.afl.rakuten.co.jp/ichiba/588b0a34.0a095756.588b0a35.46736ffd/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Flogicool%2Fgproxsl-wldexbk%2F&link_type=hybrid_url&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9",
+  "Razer Viper V3 Pro": "https://hb.afl.rakuten.co.jp/ichiba/588b3df6.2c7ffa7d.588b3df7.d357eca9/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fkitcut-ps%2F52456096621%2F&link_type=hybrid_url&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9",
+  "Razer DeathAdder V3 Pro": "https://hb.afl.rakuten.co.jp/ichiba/588b4a35.220311ac.588b4a36.afe5ca1e/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fbiccamera%2F4571585642719%2F&link_type=hybrid_url&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9",
+  "BenQ ZOWIE ZA13-C": "https://hb.afl.rakuten.co.jp/ichiba/588b4bd5.3f90025a.588b4bd6.a5004ed8/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Flacurazur%2Fza13-c%2F&link_type=hybrid_url&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9",
+  "Pulsar X2 CrazyLight": "https://hb.afl.rakuten.co.jp/ichiba/588b4dd9.6aa75d4e.588b4ddd.5aae2b9f/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fjism%2F8800304255067-41-52553-n%2F&link_type=hybrid_url&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9",
+
+  // --- マウスパッド ---
+  "Artisan 零 MID": "https://hb.afl.rakuten.co.jp/ichiba/588b4eb7.23d76a1f.588b4eb8.6f36601e/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fonlineshop-a-style%2Fartisan-zero04%2F&link_type=hybrid_url&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9",
+  "Artisan 零 SOFT": "https://hb.afl.rakuten.co.jp/ichiba/588b4eb7.23d76a1f.588b4eb8.6f36601e/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fonlineshop-a-style%2Fartisan-zero04%2F&link_type=hybrid_url&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9",
+  "Artisan 零 XSOFT": "https://hb.afl.rakuten.co.jp/ichiba/588b4eb7.23d76a1f.588b4eb8.6f36601e/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fonlineshop-a-style%2Fartisan-zero04%2F&link_type=hybrid_url&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9",
+  "BenQ ZOWIE G-SR II": "https://hb.afl.rakuten.co.jp/ichiba/588b50c3.a83b9371.588b50c4.e615c3a8/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fpckoubou%2Fm4s1p1145110%2F&link_type=hybrid_url&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9",
+  "BenQ ZOWIE G-SR-SE": "https://hb.afl.rakuten.co.jp/ichiba/588b5073.c430b8ef.588b5074.dc85bd58/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fbenq-directshop%2Fggp-g-sr-se-rouge-ii%2F&link_type=hybrid_url&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9",
+  "SteelSeries QcK Heavy": "https://hb.afl.rakuten.co.jp/ichiba/588b5285.80f2a268.588b5286.38cda2a5/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fsteelseries-official%2F5707119001816%2F&link_type=hybrid_url&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9"
+};
+
+// 全選手を走査して、名前が一致するマウス・パッドに自動でリンクを付与
+playersData.forEach(p => {
+  if (p.mouse && DEVICE_AFFILIATE_LINKS[p.mouse]) {
+    p.mouseLink = DEVICE_AFFILIATE_LINKS[p.mouse];
+  }
+  if (p.pad && DEVICE_AFFILIATE_LINKS[p.pad]) {
+    p.padLink = DEVICE_AFFILIATE_LINKS[p.pad];
+  }
+});
