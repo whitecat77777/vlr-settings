@@ -10,7 +10,7 @@
 // Pacific + JP
 // ==============================
 const playersPacific = [
-  { id: "dep", name: "Dep", team: "ZETA DIVISION", region: "JP", dpi: 1600, sens: 0.106, edpi: 169.6, crosshair: "0;s;1;P;c;5;o;1;d;1;z;3;f;0;s;0;m;1;0t;1;0l;2;0o;0;0a;1;0f;0;1b;0", mouse: "Logicool G PRO X SUPERLIGHT 2", pad: "Artisan 零 MID" },
+  { id: "dep", name: "Dep", team: "ZETA DIVISION", region: "JP", dpi: 1600, sens: 0.106, edpi: 169.6, crosshair: "0;s;1;P;c;5;o;1;d;1;z;3;f;0;s;0;m;1;0t;1;0l;2;0o;0;0a;1;0f;0;1b;0", mouse: "Logicool G PRO X SUPERLIGHT 2",mouseLink:"https://hb.afl.rakuten.co.jp/ichiba/588b0a34.0a095756.588b0a35.46736ffd/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Flogicool%2Fgproxsl-wldexbk%2F&link_type=hybrid_url&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9", pad: "Artisan 零 MID" },
   { id: "sugarz3ro", name: "SugarZ3ro", team: "ZETA DIVISION", region: "JP", dpi: 800, sens: 0.225, edpi: 180, crosshair: "0;P;c;1;o;1;f;0;0t;1;0l;2;0o;2;0a;1;0f;0;1b;0", mouse: "Razer DeathAdder V3 Pro", pad: "Artisan 零 SOFT" },
   { id: "clz", name: "CLZ", team: "ZETA DIVISION", region: "JP", dpi: 1600, sens: 0.16, edpi: 256, crosshair: "0;s;1;P;c;5;o;1;f;0;0t;1;0l;2;0o;2;0a;1;0f;0;1b;0", mouse: "Razer Viper V3 Pro", pad: "BenQ ZOWIE G-SR II" },
   { id: "syouta", name: "SyouTa", team: "ZETA DIVISION", region: "JP", dpi: 800, sens: 0.34, edpi: 272, crosshair: "0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0", mouse: "Logicool G PRO X SUPERLIGHT 2", pad: "Artisan 零 MID" },

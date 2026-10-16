@@ -182,6 +182,18 @@
       color: var(--text-main);
     }
 
+    /* アフィリエイトリンク用スタイル */
+    .device-link {
+      color: #ff4655 !important;
+      text-decoration: underline;
+      font-weight: bold;
+      transition: opacity 0.2s;
+    }
+
+    .device-link:hover {
+      opacity: 0.8;
+    }
+
     .copy-btn {
       width: 100%;
       padding: 10px;
@@ -299,6 +311,15 @@
     const fragment = document.createDocumentFragment();
 
     pageItems.forEach(p => {
+      // マウス・パッドにリンクがあれば別タブで開くリンク（🛒付き）、無ければ通常テキスト
+      const mouseHtml = p.mouseLink 
+        ? `<a href="${p.mouseLink}" target="_blank" rel="noopener noreferrer" class="device-link">${p.mouse} 🛒</a>` 
+        : `<span>${p.mouse || '未登録'}</span>`;
+
+      const padHtml = p.padLink 
+        ? `<a href="${p.padLink}" target="_blank" rel="noopener noreferrer" class="device-link">${p.pad} 🛒</a>` 
+        : `<span>${p.pad || '未登録'}</span>`;
+
       const card = document.createElement('div');
       card.className = 'card';
       card.innerHTML = `
@@ -313,8 +334,8 @@
             <div class="stat-box"><div class="stat-label">eDPI</div><div class="stat-value">${p.edpi}</div></div>
           </div>
           <div class="device-info">
-            <div>🖱 マウス: <span>${p.mouse || '未登録'}</span></div>
-            <div>⬛ パッド: <span>${p.pad || '未登録'}</span></div>
+            <div>🖱 マウス: ${mouseHtml}</div>
+            <div>⬛ パッド: ${padHtml}</div>
           </div>
         </div>
         <button class="copy-btn" onclick="copyCrosshair('${p.crosshair}', this)">
