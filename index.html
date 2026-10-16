@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VALORANT プロ選手 感度＆クロスヘアデータベース</title>
+  <style>
+    :root {
+      --bg-dark: #0f1923;
+      --card-bg: #1f2730;
+      --accent: #ff4655;
+      --text-main: #ece8e1;
+      --text-muted: #8b978f;
+      --border: #2e3b44;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Meiryo, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      padding: 20px 15px;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 6px;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .desc {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .search-input {
+      width: 100%;
+      max-width: 500px;
+      padding: 13px 18px;
+      font-size: 15px;
+      background-color: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      color: #fff;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .filter-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 16px;
+      contain: content;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+
+    .player-name {
+      font-size: 20px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .team-badge {
+      font-size: 11px;
+      background-color: rgba(255, 70, 85, 0.15);
+      color: var(--accent);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .stat-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .stat-box {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 6px 4px;
+      border-radius: 6px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .stat-value {
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .device-info {
+      background: rgba(0, 0, 0, 0.15);
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .device-info span {
+      color: var(--text-main);
+    }
+
+    .copy-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: var(--accent);
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .copy-btn.copied {
+      background-color: #00b159;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .page-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .page-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .no-results {
+      text-align: center;
+      color: var(--text-muted);
+      grid-column: 1 / -1;
+      padding: 50px 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>VALORANT <span>PRO SETTINGS</span></h1>
+    <p class="desc">プロ選手・元プロの設定・感度一覧＆クロスヘアコードワンクリックコピー</p>
+  </header>
+
+  <div class="controls">
+    <input 
+      type="text" 
+      id="searchInput" 
+      class="search-input" 
+      placeholder="選手名、チーム名でリアルタイム検索..."
+      autocomplete="off"
+    >
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-region="ALL">すべて</button>
+      <button class="filter-btn" data-region="JP">日本</button>
+      <button class="filter-btn" data-region="Pacific">Pacific</button>
+      <button class="filter-btn" data-region="Americas">Americas</button>
+      <button class="filter-btn" data-region="EMEA">EMEA</button>
+      <button class="filter-btn" data-region="China">China</button>
+    </div>
+  </div>
+
+  <div class="grid" id="playerList"></div>
+
+  <div class="pagination" id="paginationControls">
+    <button class="page-btn" id="prevBtn">前へ</button>
+    <span id="pageInfo" style="align-self: center; font-size: 14px;"></span>
+    <button class="page-btn" id="nextBtn">次へ</button>
+  </div>
+</div>
+
+<script src="players.js"></script>
+
+<script>
+  const playerList = document.getElementById('playerList');
+  const searchInput = document.getElementById('searchInput');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const pageInfo = document.getElementById('pageInfo');
+
+  let currentRegion = 'ALL';
+  let currentPage = 1;
+  const itemsPerPage = 30;
+  let filteredData = [];
+
+  function renderPage() {
+    playerList.innerHTML = '';
+
+    if (!filteredData || filteredData.length === 0) {
+      playerList.innerHTML = '<div class="no-results">該当する選手が見つかりませんでした。</div>';
+      document.getElementById('paginationControls').style.display = 'none';
+      return;
+    }
+
+    document.getElementById('paginationControls').style.display = 'flex';
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageItems = filteredData.slice(start, end);
+
+    const fragment = document.createDocumentFragment();
+
+    pageItems.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div>
+          <div class="card-header">
+            <span class="player-name">${p.name || '名前なし'}</span>
+            <span class="team-badge">${p.team || '無所属'}</span>
+          </div>
+          <div class="stat-list">
+            <div class="stat-box"><div class="stat-label">DPI</div><div class="stat-value">${p.dpi}</div></div>
+            <div class="stat-box"><div class="stat-label">感度</div><div class="stat-value">${p.sens}</div></div>
+            <div class="stat-box"><div class="stat-label">eDPI</div><div class="stat-value">${p.edpi}</div></div>
+          </div>
+          <div class="device-info">
+            <div>🖱 マウス: <span>${p.mouse || '未登録'}</span></div>
+            <div>⬛ パッド: <span>${p.pad || '未登録'}</span></div>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="copyCrosshair('${p.crosshair}', this)">
+          📋 クロスヘアをコピー
+        </button>
+      `;
+      fragment.appendChild(card);
+    });
+
+    playerList.appendChild(fragment);
+
+    pageInfo.textContent = `${currentPage} / ${totalPages} ページ (${filteredData.length} 件)`;
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+  }
+
+  function filterAndSearch() {
+    if (typeof playersData === 'undefined') return;
+    const keyword = searchInput.value.toLowerCase().trim();
+    filteredData = playersData.filter(p => {
+      const nameMatch = p.name ? p.name.toLowerCase().includes(keyword) : false;
+      const teamMatch = p.team ? p.team.toLowerCase().includes(keyword) : false;
+      const matchesKeyword = nameMatch || teamMatch;
+      const matchesRegion = currentRegion === 'ALL' || p.region === currentRegion;
+      return matchesKeyword && matchesRegion;
+    });
+    currentPage = 1;
+    renderPage();
+  }
+
+  let debounceTimer;
+  searchInput.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(filterAndSearch, 150);
+  });
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentRegion = btn.dataset.region;
+      filterAndSearch();
+    });
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+
+  function copyCrosshair(code, btn) {
+    navigator.clipboard.writeText(code).then(() => {
+      const origin = btn.innerHTML;
+      btn.innerHTML = '✔ コピー完了！';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = origin;
+        btn.classList.remove('copied');
+      }, 1500);
+    });
+  }
+
+  if (typeof playersData !== 'undefined') {
+    filteredData = playersData;
+    renderPage();
+  }
+</script>
+
+</body>
+</html>
